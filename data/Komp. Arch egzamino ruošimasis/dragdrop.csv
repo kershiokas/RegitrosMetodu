@@ -1,0 +1,3 @@
+QUESTION,A,B,C,D,ORDER,IMAGE
+"Išdėliokite Intel procesorių kartas chronologine tvarka (seniausias pirmas):","Intel Core i7","Intel 8086","Intel Pentium IV","Intel i386","B,D,C,A",
+"Išdėliokite IA-32 instrukcijos formato laukus teisinga tvarka (kairė → dešinė):","Displacement","Instruction Prefixes","ModR/M","Opcode","B,D,C,A",
