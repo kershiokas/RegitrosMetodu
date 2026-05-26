@@ -22,584 +22,183 @@
     --text-dim:  #666;
     --correct:   #2e7d32;
     --correct-bg:#e8f5e9;
+    --correct-border:#81c784;
+    --missed:    #1565c0;
+    --missed-bg: #e3f2fd;
+    --missed-border:#90caf9;
     --wrong:     #c62828;
     --wrong-bg:  #ffebee;
-    --label-bg:  #5b9bd5;
-    --label-text:#ffffff;
+    --partial:   #e65100;
+    --partial-bg:#fff3e0;
     --sans: 'IBM Plex Sans', sans-serif;
     --mono: 'IBM Plex Mono', monospace;
   }
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--sans); background: var(--off); color: var(--text); font-size: 14px; line-height: 1.5; }
 
-  body {
-    font-family: var(--sans);
-    background: var(--off);
-    color: var(--text);
-    font-size: 14px;
-    line-height: 1.5;
-  }
-
-  /* ── HEADER ── */
-  #site-header {
-    background: var(--white);
-    border-bottom: 2px solid var(--blue);
-    padding: 0 24px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  #site-header .logo {
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--blue);
-    font-family: var(--mono);
-  }
-
+  /* HEADER */
+  #site-header { background: var(--white); border-bottom: 2px solid var(--blue); padding: 0 24px; height: 44px; display: flex; align-items: center; gap: 16px; }
+  #site-header .logo { font-weight: 600; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--blue); font-family: var(--mono); }
   #site-header .sep { color: var(--border); }
+  #breadcrumb { font-size: 13px; color: var(--text-dim); font-family: var(--mono); }
 
-  #breadcrumb {
-    font-size: 13px;
-    color: var(--text-dim);
-    font-family: var(--mono);
-  }
-
-  /* ── LAYOUT ── */
+  /* LAYOUT */
   #app { min-height: calc(100vh - 44px); }
-
   .screen { display: none; }
   .screen.active { display: block; }
+  .page-wrap { max-width: 860px; margin: 0 auto; padding: 32px 24px 64px; }
+  .page-title { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+  .page-sub { font-size: 13px; color: var(--text-dim); margin-bottom: 24px; }
 
-  .page-wrap {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 32px 24px 64px;
-  }
-
-  /* ── SECTION HEADING ── */
-  .page-title {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-  .page-sub {
-    font-size: 13px;
-    color: var(--text-dim);
-    margin-bottom: 24px;
-  }
-
-  /* ── SELECT SCREEN ── */
-  .folder-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--white);
-    border: 1px solid var(--border);
-  }
-
-  .folder-table thead th {
-    background: var(--blue);
-    color: #fff;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    padding: 8px 14px;
-    text-align: left;
-    font-family: var(--mono);
-  }
-
-  .folder-table tbody tr {
-    border-bottom: 1px solid var(--border);
-    cursor: pointer;
-    transition: background 0.1s;
-  }
-
+  /* SELECT */
+  .folder-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); }
+  .folder-table thead th { background: var(--blue); color: #fff; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 8px 14px; text-align: left; font-family: var(--mono); }
+  .folder-table tbody tr { border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.1s; }
   .folder-table tbody tr:last-child { border-bottom: none; }
   .folder-table tbody tr:hover { background: var(--blue-pale); }
-
-  .folder-table td {
-    padding: 12px 14px;
-    vertical-align: middle;
-  }
-
-  .folder-table td.name {
-    font-weight: 500;
-  }
-
-  .folder-table td.meta {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--text-dim);
-  }
-
-  .folder-table td.action {
-    text-align: right;
-    width: 100px;
-  }
-
-  .btn-start {
-    background: var(--blue);
-    color: #fff;
-    border: none;
-    padding: 5px 14px;
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.1s;
-  }
+  .folder-table td { padding: 12px 14px; vertical-align: middle; }
+  .folder-table td.name { font-weight: 500; }
+  .folder-table td.meta { font-family: var(--mono); font-size: 12px; color: var(--text-dim); }
+  .folder-table td.action { text-align: right; width: 100px; }
+  .btn-start { background: var(--blue); color: #fff; border: none; padding: 5px 14px; font-family: var(--sans); font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.1s; }
   .btn-start:hover { background: #4a87be; }
 
-  /* ── LOADING ── */
-  #screen-loading {
-    padding: 80px 0;
-    text-align: center;
-    color: var(--text-dim);
-    font-size: 13px;
-    font-family: var(--mono);
-  }
+  /* LOADING */
+  #screen-loading { padding: 80px 0; text-align: center; color: var(--text-dim); font-size: 13px; font-family: var(--mono); }
 
-  /* ── QUIZ SCREEN ── */
+  /* QUIZ BAR */
   #screen-quiz .page-wrap { padding-top: 24px; }
+  .quiz-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); gap: 16px; flex-wrap: wrap; }
+  .quiz-bar .folder-name { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; font-family: var(--mono); color: var(--blue); }
+  .progress-wrap { flex: 1; max-width: 240px; display: flex; flex-direction: column; gap: 3px; }
+  .progress-track { height: 6px; background: var(--blue-pale); border: 1px solid var(--blue-lt); }
+  .progress-fill { height: 100%; background: var(--blue); transition: width 0.35s ease; }
+  .progress-label { font-size: 11px; font-family: var(--mono); color: var(--text-dim); text-align: right; }
 
-  .quiz-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border);
-    gap: 16px;
-    flex-wrap: wrap;
-  }
+  /* QUESTION CARD */
+  .question-card { background: var(--white); border: 1px solid var(--border); display: flex; animation: slideIn 0.2s ease; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .q-label { background: var(--blue-pale); border-right: 1px solid var(--border); width: 120px; flex-shrink: 0; padding: 16px 14px; display: flex; flex-direction: column; gap: 4px; }
+  .q-label .q-number { font-weight: 600; font-size: 13px; color: var(--text); }
+  .q-label .q-status { font-size: 11px; color: var(--text-dim); }
+  .q-label .q-max { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+  .q-label .q-source { font-family: var(--mono); font-size: 10px; color: var(--blue); margin-top: 8px; word-break: break-all; }
+  .q-label .q-score { font-size: 12px; font-weight: 600; margin-top: 6px; }
+  .q-content { flex: 1; padding: 16px 20px; }
+  .q-text { font-size: 14px; line-height: 1.6; margin-bottom: 10px; font-weight: 400; }
+  .q-image { display: block; max-width: 100%; max-height: 180px; object-fit: contain; border: 1px solid var(--border); margin-bottom: 12px; background: var(--off); }
+  .multi-notice { font-size: 12px; color: #b34900; font-style: italic; margin-bottom: 10px; }
 
-  .quiz-bar .folder-name {
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-family: var(--mono);
-    color: var(--blue);
-  }
-
-  .progress-wrap {
-    flex: 1;
-    max-width: 240px;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-  }
-
-  .progress-track {
-    height: 6px;
-    background: var(--blue-pale);
-    border: 1px solid var(--blue-lt);
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: var(--blue);
-    transition: width 0.35s ease;
-  }
-
-  .progress-label {
-    font-size: 11px;
-    font-family: var(--mono);
-    color: var(--text-dim);
-    text-align: right;
-  }
-
-  /* ── QUESTION CARD ── */
-  .question-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    display: flex;
-    animation: slideIn 0.2s ease;
-  }
-
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Left label — matching the reference image */
-  .q-label {
-    background: var(--blue-pale);
-    border-right: 1px solid var(--border);
-    width: 120px;
-    flex-shrink: 0;
-    padding: 16px 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .q-label .q-number {
-    font-weight: 600;
-    font-size: 13px;
-    color: var(--text);
-  }
-
-  .q-label .q-status {
-    font-size: 11px;
-    color: var(--text-dim);
-  }
-
-  .q-label .q-max {
-    font-size: 11px;
-    color: var(--text-dim);
-    margin-top: 2px;
-  }
-
-  .q-label .q-source {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--blue);
-    margin-top: 8px;
-    word-break: break-all;
-  }
-
-  /* Right content */
-  .q-content {
-    flex: 1;
-    padding: 16px 20px;
-  }
-
-  .q-text {
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 10px;
-    font-weight: 400;
-  }
-
-  .q-image {
-    display: block;
-    max-width: 100%;
-    max-height: 180px;
-    object-fit: contain;
-    border: 1px solid var(--border);
-    margin-bottom: 12px;
-    background: var(--off);
-  }
-
-  .multi-notice {
-    font-size: 12px;
-    color: #b34900;
-    font-style: italic;
-    margin-bottom: 10px;
-  }
-
-  /* Answer rows — styled exactly like reference */
-  .answers {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .answer-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--blue-row);
-    border: 1px solid var(--blue-lt);
-    border-top: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    transition: background 0.1s;
-    font-size: 13px;
-    line-height: 1.5;
-    text-align: left;
-    width: 100%;
-    color: var(--text);
-    font-family: var(--sans);
-  }
-
+  /* ANSWER ROWS */
+  .answers { display: flex; flex-direction: column; gap: 0; }
+  .answer-row { display: flex; align-items: center; gap: 10px; background: var(--blue-row); border: 1px solid var(--blue-lt); border-top: none; padding: 8px 12px; cursor: pointer; transition: background 0.1s; font-size: 13px; line-height: 1.5; text-align: left; width: 100%; color: var(--text); font-family: var(--sans); }
   .answer-row:first-child { border-top: 1px solid var(--blue-lt); }
-
   .answer-row:hover:not(:disabled) { background: var(--blue-row-h); }
-
-  .answer-row.selected {
-    background: var(--blue-sel);
-    border-color: var(--blue);
-  }
-
-  .answer-row.correct {
-    background: var(--correct-bg);
-    border-color: #81c784;
-    color: var(--correct);
-  }
-
-  .answer-row.wrong {
-    background: var(--wrong-bg);
-    border-color: #ef9a9a;
-    color: var(--wrong);
-  }
-
+  .answer-row.selected { background: var(--blue-sel); border-color: var(--blue); }
+  /* correct + selected = solid green */
+  .answer-row.correct-picked { background: var(--correct-bg); border-color: var(--correct-border); color: var(--correct); }
+  /* correct but NOT selected (missed) = blue dashed outline */
+  .answer-row.correct-missed { background: var(--missed-bg); border: 2px dashed var(--missed-border); color: var(--missed); }
+  /* wrong + selected = red */
+  .answer-row.wrong-picked { background: var(--wrong-bg); border-color: #ef9a9a; color: var(--wrong); }
   .answer-row:disabled { cursor: default; }
-
-  .answer-key {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--text-dim);
-    width: 18px;
-    flex-shrink: 0;
-  }
-
-  .answer-row.selected  .answer-key { color: var(--blue); font-weight: 600; }
-  .answer-row.correct   .answer-key { color: var(--correct); font-weight: 600; }
-  .answer-row.wrong     .answer-key { color: var(--wrong); font-weight: 600; }
-
-  /* Radio circle — like the reference */
-  .answer-radio {
-    width: 14px; height: 14px;
-    border: 1px solid var(--border-dk);
-    border-radius: 50%;
-    flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--white);
-  }
-
-  .answer-radio .dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--blue);
-    display: none;
-  }
-
+  .answer-key { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--text-dim); width: 18px; flex-shrink: 0; }
+  .answer-row.correct-picked .answer-key { color: var(--correct); font-weight: 600; }
+  .answer-row.correct-missed .answer-key { color: var(--missed); font-weight: 600; }
+  .answer-row.wrong-picked .answer-key { color: var(--wrong); font-weight: 600; }
+  .answer-radio { width: 14px; height: 14px; border: 1px solid var(--border-dk); border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--white); }
+  .answer-radio .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); display: none; }
   .answer-row.selected .answer-radio .dot { display: block; }
-  .answer-row.correct .answer-radio { border-color: var(--correct); }
-  .answer-row.correct .answer-radio .dot { display: block; background: var(--correct); }
-  .answer-row.wrong .answer-radio { border-color: var(--wrong); }
-  .answer-row.wrong .answer-radio .dot { display: block; background: var(--wrong); }
+  .answer-row.correct-picked .answer-radio { border-color: var(--correct); }
+  .answer-row.correct-picked .answer-radio .dot { display: block; background: var(--correct); }
+  .answer-row.correct-missed .answer-radio { border-color: var(--missed); border-style: dashed; }
+  .answer-row.wrong-picked .answer-radio { border-color: var(--wrong); }
+  .answer-row.wrong-picked .answer-radio .dot { display: block; background: var(--wrong); }
+  .answer-row.multi-style .answer-radio { border-radius: 2px; }
+  /* missed label */
+  .missed-label { font-size: 10px; font-family: var(--mono); color: var(--missed); margin-left: auto; flex-shrink: 0; }
 
-  /* Multi-select: square box instead */
-  .answer-row.multi-style .answer-radio {
-    border-radius: 2px;
-  }
+  /* PARTIAL SCORE NOTICE */
+  .partial-notice { font-size: 12px; color: var(--partial); font-family: var(--mono); margin-top: 8px; padding: 5px 10px; background: var(--partial-bg); border-left: 3px solid var(--partial); }
 
-  /* Action row */
-  .action-row {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 8px;
-    margin-top: 14px;
-    padding-top: 12px;
-    border-top: 1px solid var(--border);
-  }
-
-  .btn {
-    padding: 6px 18px;
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 500;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    background: var(--white);
-    color: var(--text);
-    transition: background 0.1s, border-color 0.1s;
-  }
+  /* ACTION ROW */
+  .action-row { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .btn { padding: 6px 18px; font-family: var(--sans); font-size: 13px; font-weight: 500; border: 1px solid var(--border); cursor: pointer; background: var(--white); color: var(--text); transition: background 0.1s, border-color 0.1s; }
   .btn:hover { background: var(--off); border-color: var(--border-dk); }
-  .btn:active { background: #e8e8e8; }
-
-  .btn-primary {
-    background: var(--blue);
-    color: #fff;
-    border-color: var(--blue);
-  }
+  .btn-primary { background: var(--blue); color: #fff; border-color: var(--blue); }
   .btn-primary:hover { background: #4a87be; border-color: #4a87be; }
   .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
 
-  /* ── RESULTS ── */
-  .results-summary {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-top: 3px solid var(--blue);
-    padding: 24px 28px;
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-  }
+  /* ── DRAG & DROP QUESTION ── */
+  .dd-instruction { font-size: 12px; color: var(--text-dim); font-style: italic; margin-bottom: 10px; }
+  .dd-badge { display: inline-block; font-size: 11px; font-family: var(--mono); background: #7b1fa2; color: #fff; padding: 2px 8px; margin-bottom: 10px; }
+  .dd-list { display: flex; flex-direction: column; gap: 6px; }
+  .dd-item { display: flex; align-items: center; gap: 10px; background: var(--blue-row); border: 1px solid var(--blue-lt); padding: 8px 12px; cursor: grab; font-size: 13px; user-select: none; transition: background 0.1s, box-shadow 0.1s; }
+  .dd-item:active { cursor: grabbing; }
+  .dd-item.dragging { opacity: 0.4; }
+  .dd-item.drag-over { box-shadow: 0 -2px 0 var(--blue); background: var(--blue-pale); }
+  .dd-handle { font-family: var(--mono); font-size: 12px; color: var(--text-dim); width: 20px; flex-shrink: 0; }
+  .dd-pos { font-family: var(--mono); font-size: 11px; color: var(--text-dim); width: 22px; flex-shrink: 0; background: var(--off); border: 1px solid var(--border); text-align: center; padding: 1px 0; }
+  /* after confirm */
+  .dd-item.dd-correct { background: var(--correct-bg); border-color: var(--correct-border); color: var(--correct); }
+  .dd-item.dd-wrong   { background: var(--wrong-bg); border-color: #ef9a9a; color: var(--wrong); }
+  .dd-item.dd-correct .dd-pos { background: var(--correct-bg); border-color: var(--correct); color: var(--correct); font-weight: 700; }
+  .dd-item.dd-wrong   .dd-pos { background: var(--wrong-bg); border-color: var(--wrong); color: var(--wrong); font-weight: 700; }
+  .dd-correct-order { font-size: 12px; color: var(--correct); font-family: var(--mono); margin-top: 8px; }
 
-  .score-block {
-    text-align: center;
-    min-width: 80px;
-  }
-
-  .score-num {
-    font-size: 40px;
-    font-weight: 600;
-    font-family: var(--mono);
-    color: var(--blue);
-    line-height: 1;
-    margin-bottom: 2px;
-  }
-
-  .score-denom {
-    font-size: 13px;
-    color: var(--text-dim);
-    font-family: var(--mono);
-  }
-
-  .results-divider {
-    width: 1px;
-    height: 60px;
-    background: var(--border);
-    flex-shrink: 0;
-  }
-
-  .results-meta h2 {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
+  /* RESULTS */
+  .results-summary { background: var(--white); border: 1px solid var(--border); border-top: 3px solid var(--blue); padding: 24px 28px; display: flex; align-items: center; gap: 32px; margin-bottom: 24px; flex-wrap: wrap; }
+  .score-block { text-align: center; min-width: 80px; }
+  .score-num { font-size: 40px; font-weight: 600; font-family: var(--mono); color: var(--blue); line-height: 1; margin-bottom: 2px; }
+  .score-denom { font-size: 13px; color: var(--text-dim); font-family: var(--mono); }
+  .results-divider { width: 1px; height: 60px; background: var(--border); flex-shrink: 0; }
+  .results-meta h2 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
   .results-meta p { font-size: 13px; color: var(--text-dim); margin-bottom: 10px; }
-
   .stat-row { display: flex; gap: 20px; flex-wrap: wrap; }
-
-  .stat {
-    font-size: 12px;
-    font-family: var(--mono);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .stat-bar {
-    width: 10px; height: 10px;
-    flex-shrink: 0;
-  }
-
-  /* Review section */
-  .review-heading {
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-dim);
-    font-family: var(--mono);
-    margin-bottom: 10px;
-  }
-
+  .stat { font-size: 12px; font-family: var(--mono); display: flex; align-items: center; gap: 6px; }
+  .stat-bar { width: 10px; height: 10px; flex-shrink: 0; }
+  .review-heading { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); font-family: var(--mono); margin-bottom: 10px; }
   .review-list { display: flex; flex-direction: column; gap: 6px; }
-
-  .review-item {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--border);
-  }
-
+  .review-item { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--border); }
   .review-item.ri-correct { border-left-color: var(--correct); }
+  .review-item.ri-partial { border-left-color: var(--partial); }
   .review-item.ri-wrong   { border-left-color: var(--wrong); }
-
-  .review-hdr {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 14px;
-    cursor: pointer;
-    user-select: none;
-  }
-
+  .review-hdr { display: flex; align-items: center; gap: 10px; padding: 10px 14px; cursor: pointer; user-select: none; }
   .review-hdr:hover { background: var(--off); }
-
-  .rv-badge {
-    font-size: 11px;
-    font-family: var(--mono);
-    font-weight: 500;
-    padding: 1px 8px;
-    border: 1px solid;
-    flex-shrink: 0;
-  }
-
-  .rv-badge.correct { color: var(--correct); border-color: #81c784; background: var(--correct-bg); }
-  .rv-badge.wrong   { color: var(--wrong);   border-color: #ef9a9a; background: var(--wrong-bg); }
-
+  .rv-badge { font-size: 11px; font-family: var(--mono); font-weight: 500; padding: 1px 8px; border: 1px solid; flex-shrink: 0; }
+  .rv-badge.correct { color: var(--correct); border-color: var(--correct-border); background: var(--correct-bg); }
+  .rv-badge.partial  { color: var(--partial); border-color: #ffcc80; background: var(--partial-bg); }
+  .rv-badge.wrong    { color: var(--wrong);   border-color: #ef9a9a; background: var(--wrong-bg); }
   .rv-q { font-size: 13px; flex: 1; color: var(--text); }
+  .rv-pts { font-size: 11px; font-family: var(--mono); color: var(--text-dim); flex-shrink: 0; }
   .rv-toggle { font-size: 11px; font-family: var(--mono); color: var(--text-dim); flex-shrink: 0; }
-
-  .review-body {
-    display: none;
-    padding: 0 14px 14px;
-    border-top: 1px solid var(--border);
-  }
+  .review-body { display: none; padding: 0 14px 14px; border-top: 1px solid var(--border); }
   .review-body.open { display: block; }
-
-  .rv-full-q {
-    font-size: 13px;
-    padding: 10px 0 8px;
-    color: var(--text);
-    line-height: 1.55;
-  }
-
-  .rv-img {
-    max-width: 100%;
-    max-height: 140px;
-    object-fit: contain;
-    border: 1px solid var(--border);
-    margin-bottom: 8px;
-    background: var(--off);
-    display: block;
-  }
-
+  .rv-full-q { font-size: 13px; padding: 10px 0 8px; color: var(--text); line-height: 1.55; }
+  .rv-img { max-width: 100%; max-height: 140px; object-fit: contain; border: 1px solid var(--border); margin-bottom: 8px; background: var(--off); display: block; }
   .rv-answers { display: flex; flex-direction: column; gap: 3px; }
-
-  .rv-answer {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    font-size: 12px;
-    padding: 5px 10px;
-    border: 1px solid transparent;
-  }
-
-  .rv-answer.rv-c { background: var(--correct-bg); border-color: #a5d6a7; }
-  .rv-answer.rv-w { background: var(--wrong-bg);   border-color: #ef9a9a; }
-  .rv-answer.rv-n { background: var(--off); color: var(--text-dim); }
-
-  .rv-ak {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 500;
-    width: 16px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  /* Bottom actions */
-  .footer-bar {
-    display: flex;
-    gap: 8px;
-    margin-top: 28px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border);
-  }
-
-  /* Empty state */
-  .empty {
-    padding: 48px 0;
-    text-align: center;
-    color: var(--text-dim);
-    font-size: 13px;
-    font-family: var(--mono);
-  }
+  .rv-answer { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; padding: 5px 10px; border: 1px solid transparent; }
+  .rv-answer.rv-c  { background: var(--correct-bg); border-color: #a5d6a7; }
+  .rv-answer.rv-m  { background: var(--missed-bg);  border: 1px dashed var(--missed-border); color: var(--missed); }
+  .rv-answer.rv-w  { background: var(--wrong-bg);   border-color: #ef9a9a; }
+  .rv-answer.rv-n  { background: var(--off); color: var(--text-dim); }
+  .rv-ak { font-family: var(--mono); font-size: 11px; font-weight: 500; width: 16px; flex-shrink: 0; margin-top: 1px; }
+  /* DD review */
+  .rv-dd-order { display: flex; flex-direction: column; gap: 3px; margin-top: 8px; }
+  .rv-dd-row { display: flex; align-items: center; gap: 8px; font-size: 12px; padding: 4px 10px; border: 1px solid transparent; }
+  .rv-dd-row.rv-c { background: var(--correct-bg); border-color: #a5d6a7; }
+  .rv-dd-row.rv-w { background: var(--wrong-bg); border-color: #ef9a9a; }
+  .rv-dd-pos { font-family: var(--mono); font-size: 11px; width: 22px; flex-shrink: 0; text-align: center; font-weight: 600; }
+  .footer-bar { display: flex; gap: 8px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border); }
+  .empty { padding: 48px 0; text-align: center; color: var(--text-dim); font-size: 13px; font-family: var(--mono); }
 </style>
 </head>
 <body>
-
 <header id="site-header">
   <span class="logo">Quiz</span>
   <span class="sep">/</span>
   <span id="breadcrumb">Select a test</span>
 </header>
-
 <div id="app">
 
   <!-- SELECT -->
@@ -607,27 +206,16 @@
     <div class="page-wrap">
       <div class="page-title">Available Tests</div>
       <div class="page-sub">Select a test folder to begin.</div>
-      <table class="folder-table" id="folder-table">
-        <thead>
-          <tr>
-            <th>Test name</th>
-            <th>Topics</th>
-            <th>Questions drawn</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="folder-tbody">
-          <tr><td colspan="4" class="empty">No tests found — check data/manifest.json</td></tr>
-        </tbody>
+      <table class="folder-table">
+        <thead><tr><th>Test name</th><th>Topics</th><th>Questions drawn</th><th></th></tr></thead>
+        <tbody id="folder-tbody"><tr><td colspan="4" class="empty">No tests found — check data/manifest.json</td></tr></tbody>
       </table>
     </div>
   </div>
 
   <!-- LOADING -->
   <div class="screen" id="screen-loading">
-    <div class="page-wrap">
-      <div class="empty">Loading questions...</div>
-    </div>
+    <div class="page-wrap"><div class="empty">Loading questions...</div></div>
   </div>
 
   <!-- QUIZ -->
@@ -655,167 +243,166 @@
       <div class="results-summary">
         <div class="score-block">
           <div class="score-num" id="score-num">0</div>
-          <div class="score-denom" id="score-denom">/0 correct</div>
+          <div class="score-denom" id="score-denom">/0 pts</div>
         </div>
         <div class="results-divider"></div>
         <div class="results-meta">
           <h2 id="results-title">Test complete</h2>
           <p id="results-subtitle"></p>
           <div class="stat-row">
-            <div class="stat">
-              <svg class="stat-bar" viewBox="0 0 10 10"><rect width="10" height="10" fill="#2e7d32"/></svg>
-              <span id="stat-correct">0</span> correct
-            </div>
-            <div class="stat">
-              <svg class="stat-bar" viewBox="0 0 10 10"><rect width="10" height="10" fill="#c62828"/></svg>
-              <span id="stat-wrong">0</span> wrong
-            </div>
+            <div class="stat"><svg class="stat-bar" viewBox="0 0 10 10"><rect width="10" height="10" fill="#2e7d32"/></svg><span id="stat-correct">0</span> correct</div>
+            <div class="stat"><svg class="stat-bar" viewBox="0 0 10 10"><rect width="10" height="10" fill="#e65100"/></svg><span id="stat-partial">0</span> partial</div>
+            <div class="stat"><svg class="stat-bar" viewBox="0 0 10 10"><rect width="10" height="10" fill="#c62828"/></svg><span id="stat-wrong">0</span> wrong</div>
           </div>
         </div>
       </div>
-
       <div class="review-heading">Review answers</div>
       <div class="review-list" id="review-list"></div>
-
       <div class="footer-bar">
         <button class="btn" id="btn-back-home">Back to tests</button>
         <button class="btn btn-primary" id="btn-retry">Try again</button>
       </div>
     </div>
   </div>
-
-</div><!-- #app -->
+</div>
 
 <script>
 const DATA_ROOT = 'data';
 
 let state = {
-  folders: [],
-  currentFolder: null,
-  questions: [],
+  folders: [], currentFolder: null,
+  questions: [],   // mixed: normal + dragdrop (q.type = 'mc' | 'dd')
   qIndex: 0,
-  answers: [],   // array of Set
-  confirmed: [], // array of bool
+  answers: [],     // mc: Set of displayKeys | dd: array of item indices (current order)
+  confirmed: [],
+  scores: [],      // per question: 0..1
 };
 
 /* ── CSV PARSER ── */
 function parseCSV(text) {
-  const lines = [];
-  let cur = '', inQ = false, row = [];
+  const lines = []; let cur = '', inQ = false, row = [];
   for (let i = 0; i < text.length; i++) {
     const ch = text[i];
-    if (ch === '"') {
-      if (inQ && text[i+1] === '"') { cur += '"'; i++; }
-      else inQ = !inQ;
-    } else if (ch === ',' && !inQ) {
-      row.push(cur); cur = '';
-    } else if ((ch === '\n' || ch === '\r') && !inQ) {
-      if (ch === '\r' && text[i+1] === '\n') i++;
-      row.push(cur); cur = '';
-      if (row.some(c => c.trim())) lines.push(row);
-      row = [];
-    } else {
-      cur += ch;
-    }
+    if (ch === '"') { if (inQ && text[i+1]==='"') { cur+='"'; i++; } else inQ=!inQ; }
+    else if (ch===',' && !inQ) { row.push(cur); cur=''; }
+    else if ((ch==='\n'||ch==='\r') && !inQ) {
+      if (ch==='\r'&&text[i+1]==='\n') i++;
+      row.push(cur); cur='';
+      if (row.some(c=>c.trim())) lines.push(row);
+      row=[];
+    } else cur+=ch;
   }
-  if (row.length || cur) { row.push(cur); if (row.some(c=>c.trim())) lines.push(row); }
+  if (row.length||cur) { row.push(cur); if(row.some(c=>c.trim())) lines.push(row); }
   return lines;
 }
 
 function csvToQuestions(text, sourceName) {
   const rows = parseCSV(text);
   if (rows.length < 2) return [];
-  const h = rows[0].map(s => s.trim().toUpperCase().replace(/^\uFEFF/,''));
+  const h = rows[0].map(s=>s.trim().toUpperCase().replace(/^\uFEFF/,''));
   const idx = k => h.indexOf(k);
-  const qi=idx('QUESTION'), aa=idx('ANSWER_A'), ab=idx('ANSWER_B'),
-        ac=idx('ANSWER_C'), ad=idx('ANSWER_D'), ans=idx('ANSWERS'), img=idx('IMAGE');
-
-  return rows.slice(1).filter(r => r[qi] && r[qi].trim()).map(r => {
-    const correctSet = new Set(
-      (r[ans]||'').trim().toUpperCase().replace(/\s/g,'').split(',').filter(Boolean)
-    );
+  const qi=idx('QUESTION'),aa=idx('ANSWER_A'),ab=idx('ANSWER_B'),ac=idx('ANSWER_C'),ad=idx('ANSWER_D'),ans=idx('ANSWERS'),img=idx('IMAGE');
+  return rows.slice(1).filter(r=>r[qi]&&r[qi].trim()).map(r=>{
+    const correctSet = new Set((r[ans]||'').trim().toUpperCase().replace(/\s/g,'').split(',').filter(Boolean));
     const raw = [
-      {key:'A', text:(r[aa]||'').trim()},
-      {key:'B', text:(r[ab]||'').trim()},
-      {key:'C', text:(r[ac]||'').trim()},
-      {key:'D', text:(r[ad]||'').trim()},
-    ].filter(c => c.text);
-
+      {key:'A',text:(r[aa]||'').trim()},{key:'B',text:(r[ab]||'').trim()},
+      {key:'C',text:(r[ac]||'').trim()},{key:'D',text:(r[ad]||'').trim()}
+    ].filter(c=>c.text);
     const shuffled = shuffle(raw);
     return {
+      type: 'mc',
       text: r[qi].trim(),
-      choices: shuffled.map((c, i) => ({
-        displayKey: 'ABCD'[i],
-        origKey: c.key,
-        text: c.text,
-        isCorrect: correctSet.has(c.key),
-      })),
-      image: img >= 0 ? (r[img]||'').trim() : '',
+      choices: shuffled.map((c,i)=>({ displayKey:'ABCD'[i], origKey:c.key, text:c.text, isCorrect:correctSet.has(c.key) })),
+      image: img>=0?(r[img]||'').trim():'',
       source: sourceName,
       isMultiple: correctSet.size > 1,
     };
   });
 }
 
+function csvToDragDrop(text, sourceName) {
+  const rows = parseCSV(text);
+  if (rows.length < 2) return [];
+  const h = rows[0].map(s=>s.trim().toUpperCase().replace(/^\uFEFF/,''));
+  const idx = k => h.indexOf(k);
+  const qi=idx('QUESTION'),aa=idx('A'),ab=idx('B'),ac=idx('C'),ad=idx('D'),ord=idx('ORDER'),img=idx('IMAGE');
+  if (qi<0||ord<0) return [];
+  return rows.slice(1).filter(r=>r[qi]&&r[qi].trim()).map(r=>{
+    const correctOrder = (r[ord]||'').trim().toUpperCase().replace(/\s/g,'').split(',').filter(Boolean);
+    const items = [
+      {key:'A',text:(r[aa]||'').trim()},{key:'B',text:(r[ab]||'').trim()},
+      {key:'C',text:(r[ac]||'').trim()},{key:'D',text:(r[ad]||'').trim()}
+    ].filter(c=>c.text);
+    return {
+      type: 'dd',
+      text: r[qi].trim(),
+      items,                   // [{key,text}]
+      correctOrder,            // ['B','D','A','C']
+      image: img>=0?(r[img]||'').trim():'',
+      source: sourceName,
+    };
+  });
+}
+
+/* ── SCORING ── */
+function scoreMC(q, sel) {
+  // sel = Set of displayKeys
+  const correctKeys = new Set(q.choices.filter(c=>c.isCorrect).map(c=>c.displayKey));
+  if (!q.isMultiple) return (sel.size===1 && correctKeys.has([...sel][0])) ? 1 : 0;
+  const total = correctKeys.size;
+  let pts = 0;
+  sel.forEach(k => { if (correctKeys.has(k)) pts++; else pts--; }); // penalise wrong picks
+  correctKeys.forEach(k => { if (!sel.has(k)) {} }); // missed = 0 contribution
+  // simpler: pts = correct_picked / total, no penalty for not picking but -1/total for wrong pick
+  let correct_picked = [...sel].filter(k=>correctKeys.has(k)).length;
+  let wrong_picked   = [...sel].filter(k=>!correctKeys.has(k)).length;
+  const raw = (correct_picked - wrong_picked) / total;
+  return Math.max(0, Math.min(1, raw));
+}
+
+function scoreDD(q, orderArr) {
+  // orderArr = current item keys in user order e.g. ['A','C','B','D']
+  let correct = 0;
+  orderArr.forEach((key, pos) => { if (q.correctOrder[pos] === key) correct++; });
+  return correct / q.correctOrder.length;
+}
+
 /* ── UTILS ── */
 function shuffle(a) {
-  const arr = [...a];
-  for (let i = arr.length-1; i > 0; i--) {
-    const j = Math.floor(Math.random()*(i+1));
-    [arr[i],arr[j]] = [arr[j],arr[i]];
-  }
+  const arr=[...a];
+  for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
   return arr;
 }
-
 function parseRange(filename) {
   const base = filename.replace(/\.csv$/i,'');
-  const parts = base.split('-').map(Number).filter(n => !isNaN(n));
-  if (parts.length === 2) return [parts[0], parts[1]];
-  return [parts[0]||1, parts[0]||1];
+  const parts = base.split('-').map(Number).filter(n=>!isNaN(n));
+  if (parts.length>=2) return [parts[0],parts[1]];
+  return [parts[0]||1,parts[0]||1];
 }
-
-function countFromRange(r) { return r[1] - r[0] + 1; }
-
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-function trunc(s, n) { return s.length > n ? s.slice(0, n)+'...' : s; }
+function countFromRange(r) { return r[1]-r[0]+1; }
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function trunc(s,n) { return s.length>n?s.slice(0,n)+'...':s; }
 
 /* ── SCREENS ── */
-function show(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen-'+id).classList.add('active');
-}
-
+function show(id) { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById('screen-'+id).classList.add('active'); }
 function crumb(text) { document.getElementById('breadcrumb').textContent = text; }
 
 /* ── SELECT ── */
 async function initSelect() {
   let manifest;
-  try {
-    const res = await fetch(`${DATA_ROOT}/manifest.json`);
-    if (!res.ok) throw 0;
-    manifest = await res.json();
-  } catch { manifest = null; }
-
+  try { const res=await fetch(`${DATA_ROOT}/manifest.json`); if(!res.ok) throw 0; manifest=await res.json(); }
+  catch { manifest=null; }
   const tbody = document.getElementById('folder-tbody');
-  if (!manifest || !manifest.folders || !manifest.folders.length) {
-    tbody.innerHTML = '<tr><td colspan="4" class="empty">No tests found — check data/manifest.json</td></tr>';
-    return;
+  if (!manifest||!manifest.folders||!manifest.folders.length) {
+    tbody.innerHTML='<tr><td colspan="4" class="empty">No tests found — check data/manifest.json</td></tr>'; return;
   }
-
   state.folders = manifest.folders;
-  tbody.innerHTML = '';
-
-  manifest.folders.forEach((folder, fi) => {
-    const total = folder.files.reduce((s,f) => s + countFromRange(parseRange(f)), 0);
+  tbody.innerHTML='';
+  manifest.folders.forEach((folder,fi)=>{
+    const total = folder.files.reduce((s,f)=>s+countFromRange(parseRange(f)),0);
     const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td class="name">${esc(folder.name)}</td>
-      <td class="meta">${folder.files.length}</td>
-      <td class="meta">${total}</td>
-      <td class="action"><button class="btn-start">Start</button></td>`;
-    tr.querySelector('.btn-start').addEventListener('click', () => startTest(fi));
+    tr.innerHTML=`<td class="name">${esc(folder.name)}</td><td class="meta">${folder.files.length}</td><td class="meta">${total}</td><td class="action"><button class="btn-start">Start</button></td>`;
+    tr.querySelector('.btn-start').addEventListener('click',()=>startTest(fi));
     tbody.appendChild(tr);
   });
 }
@@ -824,10 +411,10 @@ async function initSelect() {
 async function startTest(fi) {
   const folder = state.folders[fi];
   state.currentFolder = folder;
-  show('loading');
-  crumb(folder.name);
+  show('loading'); crumb(folder.name);
 
-  const allQ = [];
+  // Load normal MC questions
+  const allMC = [];
   for (const filename of folder.files) {
     const range = parseRange(filename);
     const count = countFromRange(range);
@@ -835,25 +422,40 @@ async function startTest(fi) {
       const res = await fetch(`${DATA_ROOT}/${folder.name}/${filename}`);
       if (!res.ok) throw 0;
       const qs = csvToQuestions(await res.text(), filename.replace(/\.csv$/i,''));
-      allQ.push(...shuffle(qs).slice(0, count));
-    } catch(e) {
-      console.warn('Failed to load', filename, e);
+      allMC.push(...shuffle(qs).slice(0,count));
+    } catch(e) { console.warn('Failed to load',filename,e); }
+  }
+
+  if (!allMC.length) { alert('No questions could be loaded.'); show('select'); crumb('Select a test'); return; }
+
+  // Load drag & drop questions
+  let allDD = [];
+  try {
+    const res = await fetch(`${DATA_ROOT}/${folder.name}/dragdrop.csv`);
+    if (res.ok) {
+      const ddqs = csvToDragDrop(await res.text(), 'dragdrop');
+      if (ddqs.length) {
+        // draw 20% of MC count, rounded, capped by available DD questions
+        const ddCount = Math.max(1, Math.min(ddqs.length, Math.round(allMC.length * 0.2)));
+        allDD = shuffle(ddqs).slice(0, ddCount);
+      }
     }
+  } catch(e) { /* no dragdrop file — fine */ }
+
+  // Interleave DD questions roughly evenly among MC
+  const combined = [...allMC];
+  if (allDD.length) {
+    const step = Math.floor(combined.length / (allDD.length + 1));
+    allDD.forEach((ddq, i) => { combined.splice(step * (i+1) + i, 0, ddq); });
   }
 
-  if (!allQ.length) {
-    alert('No questions could be loaded.');
-    show('select'); crumb('Select a test');
-    return;
-  }
-
-  state.questions = shuffle(allQ);
+  state.questions = combined;
   state.qIndex = 0;
-  state.answers = state.questions.map(() => new Set());
-  state.confirmed = state.questions.map(() => false);
+  state.answers  = state.questions.map(q => q.type==='dd' ? [...q.items.map(it=>it.key)] : new Set());
+  state.confirmed = state.questions.map(()=>false);
+  state.scores   = state.questions.map(()=>0);
 
-  show('quiz');
-  renderQ();
+  show('quiz'); renderQ();
 }
 
 /* ── RENDER QUESTION ── */
@@ -862,97 +464,186 @@ function renderQ() {
   const total = state.questions.length;
   const i = state.qIndex;
   const confirmed = state.confirmed[i];
-  const sel = state.answers[i];
 
   document.getElementById('quiz-folder-label').textContent = state.currentFolder.name;
   document.getElementById('q-counter').textContent = `${i+1} / ${total}`;
   document.getElementById('progress-fill').style.width = `${(i/total)*100}%`;
 
-  const imgHtml = q.image
-    ? `<img class="q-image" src="${esc(q.image)}" alt="" onerror="this.style.display='none'">` : '';
+  if (q.type === 'dd') renderDD(q, i, confirmed);
+  else renderMC(q, i, confirmed);
+  updateActions(q, i, confirmed);
+}
 
-  const multiHtml = q.isMultiple
-    ? `<div class="multi-notice">*multiple choice — select all correct answers</div>` : '';
+function renderMC(q, i, confirmed) {
+  const sel = state.answers[i];
+  const imgHtml = q.image ? `<img class="q-image" src="${esc(q.image)}" alt="" onerror="this.style.display='none'">` : '';
+  const multiHtml = q.isMultiple ? `<div class="multi-notice">*multiple choice — select all correct answers</div>` : '';
 
   const choicesHtml = q.choices.map(c => {
-    let cls = 'answer-row';
-    if (q.isMultiple) cls += ' multi-style';
+    let cls = 'answer-row' + (q.isMultiple?' multi-style':'');
+    let extra = '';
     if (confirmed) {
-      if (c.isCorrect) cls += ' correct';
-      else if (sel.has(c.displayKey)) cls += ' wrong';
-    } else if (sel.has(c.displayKey)) {
-      cls += ' selected';
-    }
-    return `<button class="${cls}" data-key="${c.displayKey}" ${confirmed ? 'disabled' : ''}>
+      const picked = sel.has(c.displayKey);
+      if (c.isCorrect && picked)  { cls += ' correct-picked'; }
+      else if (c.isCorrect && !picked) { cls += ' correct-missed'; extra = '<span class="missed-label">missed</span>'; }
+      else if (!c.isCorrect && picked) { cls += ' wrong-picked'; }
+    } else if (sel.has(c.displayKey)) { cls += ' selected'; }
+    return `<button class="${cls}" data-key="${c.displayKey}" ${confirmed?'disabled':''}>
       <span class="answer-radio"><span class="dot"></span></span>
       <span class="answer-key">${c.displayKey}.</span>
-      <span>${esc(c.text)}</span>
+      <span style="flex:1">${esc(c.text)}</span>
+      ${extra}
     </button>`;
   }).join('');
+
+  let partialHtml = '';
+  if (confirmed && q.isMultiple) {
+    const sc = state.scores[i];
+    if (sc > 0 && sc < 1) partialHtml = `<div class="partial-notice">Partial credit: ${Math.round(sc*100)}% — you missed some correct answers or selected wrong ones</div>`;
+  }
+
+  const scoreLabel = confirmed ? `${Math.round(state.scores[i]*100)}%` : '';
+  const scoreColor = confirmed ? (state.scores[i]===1?'var(--correct)':state.scores[i]>0?'var(--partial)':'var(--wrong)') : '';
 
   document.getElementById('question-area').innerHTML = `
     <div class="question-card">
       <div class="q-label">
         <div class="q-number">Question ${i+1}</div>
-        <div class="q-status">${confirmed ? 'Answered' : 'Not complete'}</div>
+        <div class="q-status">${confirmed?'Answered':'Not complete'}</div>
         <div class="q-max">Task. Max 1.0</div>
         <div class="q-source">${esc(q.source)}</div>
+        ${confirmed?`<div class="q-score" style="color:${scoreColor}">${scoreLabel}</div>`:''}
       </div>
       <div class="q-content">
         <div class="q-text">${esc(q.text)}</div>
-        ${imgHtml}
-        ${multiHtml}
+        ${imgHtml}${multiHtml}
         <div class="answers">${choicesHtml}</div>
+        ${partialHtml}
       </div>
     </div>`;
 
   document.querySelectorAll('.answer-row').forEach(btn => {
-    btn.addEventListener('click', () => onAnswer(btn.dataset.key));
+    btn.addEventListener('click', () => onAnswerMC(btn.dataset.key));
   });
-
-  updateActions();
 }
 
-function onAnswer(key) {
+function renderDD(q, i, confirmed) {
+  const orderKeys = state.answers[i]; // array of keys in current order
+  const imgHtml = q.image ? `<img class="q-image" src="${esc(q.image)}" alt="" onerror="this.style.display='none'">` : '';
+
+  const itemsHtml = orderKeys.map((key, pos) => {
+    const item = q.items.find(it=>it.key===key);
+    let cls = 'dd-item';
+    let posLabel = pos+1;
+    if (confirmed) {
+      cls += q.correctOrder[pos]===key ? ' dd-correct' : ' dd-wrong';
+    }
+    return `<div class="${cls}" draggable="${!confirmed}" data-key="${key}" data-pos="${pos}">
+      <span class="dd-handle">${confirmed?'':'⠿'}</span>
+      <span class="dd-pos">${posLabel}</span>
+      <span>${esc(item.text)}</span>
+    </div>`;
+  }).join('');
+
+  let correctOrderHtml = '';
+  if (confirmed && state.scores[i] < 1) {
+    const labels = q.correctOrder.map(k => { const it=q.items.find(x=>x.key===k); return it?it.text:'?'; });
+    correctOrderHtml = `<div class="dd-correct-order">Correct order: ${labels.map((l,i)=>`${i+1}. ${l}`).join(' → ')}</div>`;
+  }
+
+  const scoreLabel = confirmed ? `${Math.round(state.scores[i]*100)}%` : '';
+  const scoreColor = confirmed ? (state.scores[i]===1?'var(--correct)':state.scores[i]>0?'var(--partial)':'var(--wrong)') : '';
+
+  document.getElementById('question-area').innerHTML = `
+    <div class="question-card">
+      <div class="q-label">
+        <div class="q-number">Question ${i+1}</div>
+        <div class="q-status">${confirmed?'Answered':'Not complete'}</div>
+        <div class="q-max">Task. Max 1.0</div>
+        <div class="q-source">${esc(q.source)}</div>
+        ${confirmed?`<div class="q-score" style="color:${scoreColor}">${scoreLabel}</div>`:''}
+      </div>
+      <div class="q-content">
+        <span class="dd-badge">ORDER</span>
+        <div class="q-text">${esc(q.text)}</div>
+        ${imgHtml}
+        <div class="dd-instruction">Drag items into the correct order.</div>
+        <div class="dd-list" id="dd-list">${itemsHtml}</div>
+        ${correctOrderHtml}
+      </div>
+    </div>`;
+
+  if (!confirmed) initDragDrop(i);
+}
+
+/* ── DRAG & DROP LOGIC ── */
+function initDragDrop(qIdx) {
+  const list = document.getElementById('dd-list');
+  if (!list) return;
+  let dragSrc = null;
+
+  list.querySelectorAll('.dd-item').forEach(item => {
+    item.addEventListener('dragstart', e => {
+      dragSrc = item;
+      item.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    item.addEventListener('dragend', () => { item.classList.remove('dragging'); list.querySelectorAll('.dd-item').forEach(i=>i.classList.remove('drag-over')); });
+    item.addEventListener('dragover', e => { e.preventDefault(); e.dataTransfer.dropEffect='move'; item.classList.add('drag-over'); });
+    item.addEventListener('dragleave', () => item.classList.remove('drag-over'));
+    item.addEventListener('drop', e => {
+      e.preventDefault();
+      if (dragSrc && dragSrc !== item) {
+        const allItems = [...list.querySelectorAll('.dd-item')];
+        const srcIdx = allItems.indexOf(dragSrc);
+        const tgtIdx = allItems.indexOf(item);
+        // swap in state
+        const arr = state.answers[qIdx];
+        [arr[srcIdx], arr[tgtIdx]] = [arr[tgtIdx], arr[srcIdx]];
+        renderQ(); // re-render with new order
+      }
+    });
+  });
+}
+
+/* ── ANSWER HANDLERS ── */
+function onAnswerMC(key) {
   const i = state.qIndex;
   const sel = state.answers[i];
-  if (state.questions[i].isMultiple) {
-    sel.has(key) ? sel.delete(key) : sel.add(key);
-  } else {
-    sel.clear(); sel.add(key);
-  }
+  if (state.questions[i].isMultiple) { sel.has(key)?sel.delete(key):sel.add(key); }
+  else { sel.clear(); sel.add(key); }
   renderQ();
 }
 
-function updateActions() {
-  const i = state.qIndex;
-  const confirmed = state.confirmed[i];
-  const hasAnswer = state.answers[i].size > 0;
-  const isLast = i === state.questions.length - 1;
+function updateActions(q, i, confirmed) {
+  const isLast = i === state.questions.length-1;
   const btnC = document.getElementById('btn-confirm');
   const btnN = document.getElementById('btn-next');
+  let hasAnswer;
+  if (q.type==='dd') hasAnswer = true; // always has an order
+  else hasAnswer = state.answers[i].size > 0;
 
   if (!confirmed) {
-    btnC.style.display = ''; btnN.style.display = 'none';
+    btnC.style.display=''; btnN.style.display='none';
     btnC.disabled = !hasAnswer;
   } else {
-    btnC.style.display = 'none'; btnN.style.display = '';
+    btnC.style.display='none'; btnN.style.display='';
     btnN.textContent = isLast ? 'See results' : 'Next';
   }
 }
 
 document.getElementById('btn-confirm').addEventListener('click', () => {
-  state.confirmed[state.qIndex] = true;
+  const i = state.qIndex;
+  const q = state.questions[i];
+  state.confirmed[i] = true;
+  if (q.type==='dd') state.scores[i] = scoreDD(q, state.answers[i]);
+  else state.scores[i] = scoreMC(q, state.answers[i]);
   renderQ();
 });
 
 document.getElementById('btn-next').addEventListener('click', () => {
-  if (state.qIndex < state.questions.length - 1) {
-    state.qIndex++;
-    renderQ();
-  } else {
-    showResults();
-  }
+  if (state.qIndex < state.questions.length-1) { state.qIndex++; renderQ(); }
+  else showResults();
 });
 
 document.getElementById('btn-quit').addEventListener('click', () => {
@@ -961,83 +652,83 @@ document.getElementById('btn-quit').addEventListener('click', () => {
 
 /* ── RESULTS ── */
 function showResults() {
-  show('results');
-  crumb(state.currentFolder.name + ' — Results');
-
+  show('results'); crumb(state.currentFolder.name+' — Results');
   const total = state.questions.length;
-  let correct = 0;
+  const totalPts = state.scores.reduce((s,v)=>s+v,0);
+  const pct = Math.round(totalPts/total*100);
 
-  state.questions.forEach((q, i) => {
-    const sel = state.answers[i];
-    const ck = new Set(q.choices.filter(c=>c.isCorrect).map(c=>c.displayKey));
-    if (sel.size === ck.size && [...sel].every(k=>ck.has(k))) correct++;
-  });
+  let nCorrect=0, nPartial=0, nWrong=0;
+  state.scores.forEach(s => { if(s===1) nCorrect++; else if(s>0) nPartial++; else nWrong++; });
 
-  const pct = Math.round(correct/total*100);
-  document.getElementById('score-num').textContent = correct;
-  document.getElementById('score-denom').textContent = `/${total} correct`;
-  document.getElementById('results-title').textContent =
-    pct >= 80 ? 'Well done.' : pct >= 50 ? 'Decent result.' : 'Needs improvement.';
-  document.getElementById('results-subtitle').textContent =
-    `${pct}% — ${state.currentFolder.name}`;
-  document.getElementById('stat-correct').textContent = correct;
-  document.getElementById('stat-wrong').textContent = total - correct;
+  document.getElementById('score-num').textContent = totalPts.toFixed(1);
+  document.getElementById('score-denom').textContent = `/${total} pts`;
+  document.getElementById('results-title').textContent = pct>=80?'Well done.':pct>=50?'Decent result.':'Needs improvement.';
+  document.getElementById('results-subtitle').textContent = `${pct}% — ${state.currentFolder.name}`;
+  document.getElementById('stat-correct').textContent = nCorrect;
+  document.getElementById('stat-partial').textContent = nPartial;
+  document.getElementById('stat-wrong').textContent = nWrong;
 
   const list = document.getElementById('review-list');
   list.innerHTML = '';
 
   state.questions.forEach((q, i) => {
-    const sel = state.answers[i];
-    const ck = new Set(q.choices.filter(c=>c.isCorrect).map(c=>c.displayKey));
-    const isRight = sel.size === ck.size && [...sel].every(k=>ck.has(k));
+    const sc = state.scores[i];
+    const badgeCls = sc===1?'correct':sc>0?'partial':'wrong';
+    const badgeTxt = sc===1?'Correct':sc>0?`Partial ${Math.round(sc*100)}%`:'Wrong';
+    const itemCls  = sc===1?'ri-correct':sc>0?'ri-partial':'ri-wrong';
 
-    const answersHtml = q.choices.map(c => {
-      const isCor = c.isCorrect;
-      const isPicked = sel.has(c.displayKey);
-      let cls = 'rv-answer rv-n';
-      if (isCor && isPicked) cls = 'rv-answer rv-c';
-      else if (!isCor && isPicked) cls = 'rv-answer rv-w';
-      else if (isCor) cls = 'rv-answer rv-c';
-      const sym = isCor ? '✓' : (isPicked ? '✗' : c.displayKey);
-      return `<div class="${cls}"><span class="rv-ak">${sym}</span><span>${esc(c.text)}</span></div>`;
-    }).join('');
+    let bodyHtml = '';
+    const imgHtml = q.image ? `<img class="rv-img" src="${esc(q.image)}" alt="" onerror="this.style.display='none'">` : '';
 
-    const imgHtml = q.image
-      ? `<img class="rv-img" src="${esc(q.image)}" alt="" onerror="this.style.display='none'">` : '';
+    if (q.type==='dd') {
+      const rowsHtml = state.answers[i].map((key, pos) => {
+        const item = q.items.find(it=>it.key===key);
+        const ok = q.correctOrder[pos]===key;
+        return `<div class="rv-dd-row ${ok?'rv-c':'rv-w'}">
+          <span class="rv-dd-pos">${pos+1}</span>
+          <span>${esc(item?item.text:'?')}</span>
+          ${!ok?`<span style="margin-left:auto;font-size:11px;font-family:var(--mono);color:var(--wrong)">expected: ${esc((q.items.find(x=>x.key===q.correctOrder[pos])||{text:'?'}).text)}</span>`:''}
+        </div>`;
+      }).join('');
+      bodyHtml = `<div class="rv-full-q">${esc(q.text)}</div>${imgHtml}<div class="rv-dd-order">${rowsHtml}</div>`;
+    } else {
+      const sel = state.answers[i];
+      const answersHtml = q.choices.map(c => {
+        const picked = sel.has(c.displayKey);
+        let cls = 'rv-answer rv-n';
+        if (c.isCorrect && picked)   cls = 'rv-answer rv-c';
+        else if (c.isCorrect && !picked) cls = 'rv-answer rv-m';
+        else if (!c.isCorrect && picked) cls = 'rv-answer rv-w';
+        const sym = c.isCorrect?(picked?'✓':'○'):(picked?'✗':c.displayKey);
+        const note = c.isCorrect&&!picked ? ' <span style="font-size:10px;color:var(--missed)">(missed)</span>' : '';
+        return `<div class="${cls}"><span class="rv-ak">${sym}</span><span>${esc(c.text)}${note}</span></div>`;
+      }).join('');
+      bodyHtml = `<div class="rv-full-q">${esc(q.text)}</div>${imgHtml}<div class="rv-answers">${answersHtml}</div>`;
+    }
 
     const item = document.createElement('div');
-    item.className = `review-item ${isRight ? 'ri-correct' : 'ri-wrong'}`;
+    item.className = `review-item ${itemCls}`;
     item.innerHTML = `
       <div class="review-hdr">
-        <span class="rv-badge ${isRight ? 'correct' : 'wrong'}">${isRight ? 'Correct' : 'Wrong'}</span>
-        <span class="rv-q">${esc(trunc(q.text, 90))}</span>
+        <span class="rv-badge ${badgeCls}">${badgeTxt}</span>
+        <span class="rv-q">${esc(trunc(q.text,90))}</span>
+        <span class="rv-pts">${sc.toFixed(2)}pt</span>
         <span class="rv-toggle">[+]</span>
       </div>
-      <div class="review-body">
-        <div class="rv-full-q">${esc(q.text)}</div>
-        ${imgHtml}
-        <div class="rv-answers">${answersHtml}</div>
-      </div>`;
-
+      <div class="review-body">${bodyHtml}</div>`;
     item.querySelector('.review-hdr').addEventListener('click', () => {
       const body = item.querySelector('.review-body');
-      const tog = item.querySelector('.rv-toggle');
+      const tog  = item.querySelector('.rv-toggle');
       body.classList.toggle('open');
-      tog.textContent = body.classList.contains('open') ? '[-]' : '[+]';
+      tog.textContent = body.classList.contains('open')?'[-]':'[+]';
     });
-
     list.appendChild(item);
   });
 }
 
-document.getElementById('btn-back-home').addEventListener('click', () => {
-  show('select'); crumb('Select a test');
-});
-document.getElementById('btn-retry').addEventListener('click', () => {
-  startTest(state.folders.indexOf(state.currentFolder));
-});
+document.getElementById('btn-back-home').addEventListener('click', () => { show('select'); crumb('Select a test'); });
+document.getElementById('btn-retry').addEventListener('click', () => { startTest(state.folders.indexOf(state.currentFolder)); });
 
-/* ── BOOT ── */
 initSelect();
 </script>
 </body>
