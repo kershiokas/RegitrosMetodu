@@ -3,8 +3,13 @@
     {
       "name": "Komp. Arch egzamino ruošimasis",
       "files": [
-        "06.csv",
-        "07-08.csv"
+        "06-UTF-UNIKODAS.csv",
+        "07-08-KAT-PROCESORIUS.csv"
+        "09-VIRT-MASINA.csv"
+        "10-KAT-IA.csv"
+        "11_mmx_sseTWO.csv"
+        "12-atminties-valdymas.csv"
+        "12-KAT-Pipeline.csv"
       ]
     }
   ]
