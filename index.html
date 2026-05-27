@@ -280,11 +280,17 @@ let state = {
 
 /* ── CSV PARSER ── */
 function parseCSV(text) {
+  // strip BOM
+  if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+  // auto-detect delimiter: semicolon or comma
+  const firstLine = text.split(/\r?\n/)[0];
+  const delim = (firstLine.split(';').length > firstLine.split(',').length) ? ';' : ',';
+
   const lines = []; let cur = '', inQ = false, row = [];
   for (let i = 0; i < text.length; i++) {
     const ch = text[i];
     if (ch === '"') { if (inQ && text[i+1]==='"') { cur+='"'; i++; } else inQ=!inQ; }
-    else if (ch===',' && !inQ) { row.push(cur); cur=''; }
+    else if (ch===delim && !inQ) { row.push(cur); cur=''; }
     else if ((ch==='\n'||ch==='\r') && !inQ) {
       if (ch==='\r'&&text[i+1]==='\n') i++;
       row.push(cur); cur='';
